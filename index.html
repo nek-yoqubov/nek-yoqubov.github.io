@@ -1,21 +1,334 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
- <meta name="google-site-verification" content="b3a5582c-4ba4-41db-bb70-7b61032eae02" />
-  <script defer src="https://cloud.umami.is/script.js" data-website-id="b3a5582c-4ba4-41db-bb70-7b61032eae02"></script>
-<title>
-  страничка
-</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nekruz — Developer</title>
+<meta name="description" content="18 y/o developer from Khujand, Tajikistan. Building web projects, automations, and desktop apps.">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:#0d0d0f;color:#e8e8e8;font-family:'Inter',system-ui,sans-serif;line-height:1.6}
+  a{text-decoration:none;color:inherit}
+
+  nav{position:sticky;top:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:1.1rem 2rem;background:#0d0d0fcc;backdrop-filter:blur(12px);border-bottom:0.5px solid #1e1e1e}
+  .logo{font-size:15px;font-weight:500;color:#fff;letter-spacing:0.5px}
+  .logo span{color:#7F77DD}
+  .nav-right{display:flex;align-items:center;gap:1.5rem}
+  .nav-links{display:flex;gap:1.5rem}
+  .nav-links a{font-size:13px;color:#666;transition:color 0.2s}
+  .nav-links a:hover{color:#e8e8e8}
+  .lang-toggle{display:flex;background:#141416;border:0.5px solid #222;border-radius:8px;overflow:hidden}
+  .lang-btn{padding:4px 14px;font-size:12px;border:none;background:transparent;color:#555;cursor:pointer;transition:all 0.15s}
+  .lang-btn.active{background:#7F77DD;color:#fff}
+
+  .hero{padding:6rem 2rem 5rem;text-align:center;position:relative}
+  .hero::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:600px;height:300px;background:radial-gradient(ellipse at center,#7F77DD18 0%,transparent 70%);pointer-events:none}
+  .hero-tag{font-size:11px;color:#7F77DD;letter-spacing:2.5px;text-transform:uppercase;margin-bottom:1.2rem;animation:fadeUp 0.6s 0.1s both}
+  .hero h1{font-size:clamp(2rem,5vw,3.4rem);font-weight:500;color:#fff;line-height:1.15;margin-bottom:1.2rem;animation:fadeUp 0.6s 0.25s both}
+  .hero h1 .accent{color:#7F77DD}
+  .hero-sub{font-size:15px;color:#666;max-width:500px;margin:0 auto 2.5rem;line-height:1.8;animation:fadeUp 0.6s 0.4s both}
+  .hero-btns{display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap;animation:fadeUp 0.6s 0.55s both}
+  .btn-primary{padding:0.65rem 1.5rem;background:#7F77DD;color:#fff;border:none;border-radius:8px;font-size:13px;cursor:pointer;transition:background 0.2s;font-family:inherit}
+  .btn-primary:hover{background:#534AB7}
+  .btn-outline{padding:0.65rem 1.5rem;background:transparent;color:#888;border:0.5px solid #2a2a2a;border-radius:8px;font-size:13px;cursor:pointer;transition:all 0.2s;font-family:inherit}
+  .btn-outline:hover{border-color:#7F77DD;color:#e8e8e8}
+  .scroll-hint{margin-top:4rem;display:flex;flex-direction:column;align-items:center;gap:8px;animation:fadeUp 0.6s 0.8s both}
+  .scroll-hint span{font-size:11px;color:#333;letter-spacing:1px}
+  .scroll-line{width:0.5px;height:40px;background:linear-gradient(#7F77DD,transparent)}
+
+  .divider{height:0.5px;background:#161616;margin:0 2rem}
+  section{padding:4rem 2rem;max-width:900px;margin:0 auto}
+
+  .section-label{font-size:11px;color:#444;letter-spacing:2.5px;text-transform:uppercase;margin-bottom:0.5rem}
+  .section-title{font-size:22px;font-weight:500;color:#e8e8e8;margin-bottom:2rem}
+
+  .about-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;margin-bottom:2rem}
+  .stat-card{background:#111113;border:0.5px solid #1e1e1e;border-radius:10px;padding:1.25rem;transition:border-color 0.2s}
+  .stat-card:hover{border-color:#534AB7}
+  .stat-num{font-size:24px;font-weight:500;color:#7F77DD;margin-bottom:4px}
+  .stat-label{font-size:12px;color:#555}
+  .about-text{font-size:14px;color:#666;line-height:1.9;max-width:640px;margin-bottom:1.5rem}
+  .skills-wrap{display:flex;flex-wrap:wrap;gap:0.5rem}
+  .skill-tag{padding:5px 13px;background:#111113;border:0.5px solid #1e1e1e;border-radius:20px;font-size:12px;color:#777;transition:all 0.2s;cursor:default}
+  .skill-tag:hover{border-color:#7F77DD;color:#AFA9EC}
+
+  .projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem}
+  .proj-card{background:#111113;border:0.5px solid #1e1e1e;border-radius:12px;padding:1.4rem;transition:all 0.25s;display:flex;flex-direction:column;gap:0.75rem}
+  .proj-card:hover{border-color:#534AB7;transform:translateY(-3px)}
+  .proj-icon{width:36px;height:36px;background:#1a1730;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px}
+  .proj-name{font-size:14px;font-weight:500;color:#e0e0e0}
+  .proj-desc{font-size:12px;color:#555;line-height:1.7;flex:1}
+  .proj-footer{display:flex;align-items:center;justify-content:space-between}
+  .proj-tags{display:flex;gap:0.4rem;flex-wrap:wrap}
+  .proj-tag{font-size:11px;color:#7F77DD;background:#1a1730;padding:2px 8px;border-radius:4px}
+  .proj-link{font-size:11px;color:#444;transition:color 0.2s}
+  .proj-card:hover .proj-link{color:#7F77DD}
+
+  .contact-links{display:flex;flex-wrap:wrap;gap:0.75rem}
+  .contact-item{display:flex;align-items:center;gap:8px;padding:0.65rem 1.1rem;background:#111113;border:0.5px solid #1e1e1e;border-radius:8px;font-size:13px;color:#777;transition:all 0.2s}
+  .contact-item:hover{border-color:#7F77DD;color:#e8e8e8}
+  .contact-item svg{flex-shrink:0}
+
+  footer{border-top:0.5px solid #161616;padding:2rem;text-align:center}
+  footer p{font-size:12px;color:#333}
+
+  @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity 0.6s ease,transform 0.6s ease}
+  .reveal.visible{opacity:1;transform:none}
+
+  @media(max-width:600px){
+    nav{padding:1rem 1.25rem}
+    .hero{padding:4rem 1.25rem 3rem}
+    section{padding:3rem 1.25rem}
+    .divider{margin:0 1.25rem}
+    .nav-links{display:none}
+  }
+</style>
 </head>
 <body>
-Hello World!
+
+<nav>
+  <div class="logo">nek<span>.</span>xyz</div>
+  <div class="nav-right">
+    <div class="nav-links">
+      <a href="#about" id="nav-about">About</a>
+      <a href="#projects" id="nav-proj">Projects</a>
+      <a href="#contact" id="nav-contact">Contact</a>
+    </div>
+    <div class="lang-toggle">
+      <button class="lang-btn" id="btn-ru" onclick="applyLang('ru')">RU</button>
+      <button class="lang-btn active" id="btn-en" onclick="applyLang('en')">EN</button>
+    </div>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-tag" id="t-tag">Developer & Specialist</div>
+  <h1 id="t-h1">Hi, I'm <span class="accent">Nekruz</span><br>I build things for the web</h1>
+  <p class="hero-sub" id="t-sub">18 y/o developer from Khujand, Tajikistan. Building web projects, automations, and desktop apps.</p>
+  <div class="hero-btns">
+    <button class="btn-primary" onclick="document.getElementById('projects').scrollIntoView({behavior:'smooth'})" id="t-btn1">View projects</button>
+    <button class="btn-outline" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})" id="t-btn2">Get in touch</button>
+  </div>
+  <div class="scroll-hint">
+    <span id="t-scroll">scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<section id="about">
+  <div class="reveal">
+    <div class="section-label" id="t-about-label">About</div>
+    <div class="section-title" id="t-about-title">A bit about me</div>
+    <div class="about-stats">
+      <div class="stat-card"><div class="stat-num">15+</div><div class="stat-label" id="t-s1">Months at Промебель</div></div>
+      <div class="stat-card"><div class="stat-num">6+</div><div class="stat-label" id="t-s2">Projects built</div></div>
+      <div class="stat-card"><div class="stat-num">5+</div><div class="stat-label" id="t-s3">Languages & stacks</div></div>
+    </div>
+    <p class="about-text" id="t-about-text">Student, developer, and furniture specialist. I work at Промебель in procurement while building web tools, automations, and desktop apps on the side. Currently deepening C# and .NET, exploring freelance opportunities, and learning something new every day.</p>
+    <div class="skills-wrap">
+      <span class="skill-tag">C#</span>
+      <span class="skill-tag">C++</span>
+      <span class="skill-tag">HTML / CSS / JS</span>
+      <span class="skill-tag">VBA / Excel</span>
+      <span class="skill-tag">1C</span>
+      <span class="skill-tag">.NET MAUI</span>
+      <span class="skill-tag">Google Apps Script</span>
+      <span class="skill-tag">Node.js</span>
+      <span class="skill-tag">WPF</span>
+      <span class="skill-tag">Git</span>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="projects">
+  <div class="reveal">
+    <div class="section-label" id="t-proj-label">Projects</div>
+    <div class="section-title" id="t-proj-title">Things I've built</div>
+    <div class="projects-grid">
+
+      <div class="proj-card">
+        <div class="proj-icon">⚡</div>
+        <div class="proj-name" id="p1-name">Live HTML Editor</div>
+        <div class="proj-desc" id="p1-desc">WPF desktop app with Monaco Editor, live preview, tabs, drag-and-drop, and a full Inno Setup installer.</div>
+        <div class="proj-footer">
+          <div class="proj-tags"><span class="proj-tag">C#</span><span class="proj-tag">WPF</span><span class="proj-tag">WebView2</span></div>
+        </div>
+      </div>
+
+      <div class="proj-card">
+        <div class="proj-icon">🕌</div>
+        <div class="proj-name" id="p2-name">Qibla Finder</div>
+        <div class="proj-desc" id="p2-desc">.NET MAUI mobile app using GPS and compass to display Kaaba direction with a rotating arrow indicator.</div>
+        <div class="proj-footer">
+          <div class="proj-tags"><span class="proj-tag">C#</span><span class="proj-tag">MAUI</span><span class="proj-tag">GPS</span></div>
+        </div>
+      </div>
+
+      <div class="proj-card">
+        <div class="proj-icon">🪵</div>
+        <div class="proj-name" id="p3-name">Промебель Catalog</div>
+        <div class="proj-desc" id="p3-desc">Dark-themed product catalog connected to Google Sheets via JSONP. Includes filtering, search, and modal views.</div>
+        <div class="proj-footer">
+          <div class="proj-tags"><span class="proj-tag">JS</span><span class="proj-tag">Google Sheets</span><span class="proj-tag">GitHub Pages</span></div>
+          <a class="proj-link" href="https://nek-yoqubov.github.io/promebel/catalog/index.html" target="_blank">↗</a>
+        </div>
+      </div>
+
+      <div class="proj-card">
+        <div class="proj-icon">🚢</div>
+        <div class="proj-name" id="p4-name">LAN Battleship</div>
+        <div class="proj-desc" id="p4-desc">Multiplayer battleship over LAN with Node.js/WebSocket backend, ship placement, hit tracking, and session reconnection.</div>
+        <div class="proj-footer">
+          <div class="proj-tags"><span class="proj-tag">Node.js</span><span class="proj-tag">WebSocket</span><span class="proj-tag">JS</span></div>
+        </div>
+      </div>
+
+      <div class="proj-card">
+        <div class="proj-icon">🖥️</div>
+        <div class="proj-name" id="p5-name">Промебель Screens</div>
+        <div class="proj-desc" id="p5-desc">Animated HTML digital signage for in-store vertical screens. Rotating info cards with SVG Pro Mebel logo.</div>
+        <div class="proj-footer">
+          <div class="proj-tags"><span class="proj-tag">HTML</span><span class="proj-tag">CSS</span><span class="proj-tag">SVG</span></div>
+          <a class="proj-link" href="https://nek-yoqubov.github.io/promebel/" target="_blank">↗</a>
+        </div>
+      </div>
+
+      <div class="proj-card">
+        <div class="proj-icon">📊</div>
+        <div class="proj-name" id="p6-name">VBA Automations</div>
+        <div class="proj-desc" id="p6-desc">Excel VBA macros for auto-filling Egger and Кедр price tag sheets, saving hours of manual work each week.</div>
+        <div class="proj-footer">
+          <div class="proj-tags"><span class="proj-tag">VBA</span><span class="proj-tag">Excel</span><span class="proj-tag">1C</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="contact">
+  <div class="reveal">
+    <div class="section-label" id="t-contact-label">Contact</div>
+    <div class="section-title" id="t-contact-title">Get in touch</div>
+    <div class="contact-links">
+      <a class="contact-item" href="https://github.com/nek-yoqubov" target="_blank">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.39.6.11.82-.26.82-.58v-2.03c-3.34.72-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.75-1.33-1.75-1.08-.74.08-.73.08-.73 1.2.09 1.83 1.23 1.83 1.23 1.06 1.82 2.79 1.29 3.47.99.1-.77.41-1.29.75-1.59-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.11-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02 0 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.65 1.66.24 2.88.12 3.18.77.84 1.23 1.91 1.23 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.21.7.82.58C20.56 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        GitHub
+      </a>
+      <a class="contact-item" href="https://t.me/nekruz_dev" target="_blank">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.94 8.19l-2.02 9.52c-.15.66-.54.82-1.08.51l-3-2.21-1.45 1.39c-.16.16-.3.3-.61.3l.22-3.07 5.6-5.06c.24-.22-.05-.34-.38-.12L6.4 14.17l-2.96-.92c-.64-.2-.65-.64.14-.95l11.57-4.46c.53-.19 1 .13.79.95z"/></svg>
+        Telegram
+      </a>
+      <a class="contact-item" href="mailto:nekruz@nekruz.xyz">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
+        nekruz@nekruz.xyz
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>nekruz.xyz &mdash; 2026</p>
+</footer>
+
+<script>
+const lang = {
+  en: {
+    tag:'Developer & Specialist',
+    h1:'Hi, I\'m <span class="accent">Nekruz</span><br>I build things for the web',
+    sub:'18 y/o developer from Khujand, Tajikistan. Building web projects, automations, and desktop apps.',
+    btn1:'View projects', btn2:'Get in touch', scroll:'scroll',
+    aboutLabel:'About', aboutTitle:'A bit about me',
+    s1:'Months at Промебель', s2:'Projects built', s3:'Languages & stacks',
+    aboutText:'Student, developer, and furniture specialist. I work at Промебель in procurement while building web tools, automations, and desktop apps on the side. Currently deepening C# and .NET, exploring freelance, and learning something new every day.',
+    projLabel:'Projects', projTitle:"Things I've built",
+    contactLabel:'Contact', contactTitle:'Get in touch',
+    navAbout:'About', navProj:'Projects', navContact:'Contact',
+    p1:'WPF desktop app with Monaco Editor, live preview, tabs, drag-and-drop, and a full Inno Setup installer.',
+    p2:'.NET MAUI mobile app using GPS and compass to display Kaaba direction with a rotating arrow.',
+    p3:'Dark-themed product catalog connected to Google Sheets via JSONP. Includes filtering, search, and modal views.',
+    p4:'Multiplayer battleship over LAN with Node.js/WebSocket backend, ship placement, and session reconnection.',
+    p5:'Animated HTML digital signage for in-store vertical screens. Rotating info cards with SVG logo.',
+    p6:'Excel VBA macros for auto-filling Egger and Кедр price tag sheets, saving hours of manual work each week.',
+    p1n:'Live HTML Editor', p2n:'Qibla Finder', p3n:'Промебель Catalog',
+    p4n:'LAN Battleship', p5n:'Промебель Screens', p6n:'VBA Automations'
+  },
+  ru: {
+    tag:'Разработчик & Специалист',
+    h1:'Привет, я <span class="accent">Некрӯз</span><br>Создаю вещи для веба',
+    sub:'18-летний разработчик из Худжанда, Таджикистан. Пишу веб-проекты, автоматизации и десктопные приложения.',
+    btn1:'Проекты', btn2:'Связаться', scroll:'листай',
+    aboutLabel:'Обо мне', aboutTitle:'Немного о себе',
+    s1:'Месяцев в Промебель', s2:'Проектов создано', s3:'Языков и стеков',
+    aboutText:'Студент, программист и специалист по мебели. Работаю в Промебель в закупках, параллельно создаю веб-инструменты, автоматизации и десктопные приложения. Сейчас углубляюсь в C# и .NET, исследую фриланс и каждый день учу что-то новое.',
+    projLabel:'Проекты', projTitle:'Что я сделал',
+    contactLabel:'Контакты', contactTitle:'Связаться',
+    navAbout:'Обо мне', navProj:'Проекты', navContact:'Контакты',
+    p1:'Десктопное WPF-приложение с Monaco Editor, живым превью, вкладками и drag-and-drop. Полный установщик Inno Setup.',
+    p2:'Мобильное приложение .NET MAUI с GPS и компасом для определения направления на Каабу.',
+    p3:'Каталог товаров с тёмной темой, подключённый к Google Sheets через JSONP. Фильтрация, поиск и модальные окна.',
+    p4:'Многопользовательский морской бой по локальной сети на Node.js/WebSocket с расстановкой кораблей и реконнектом.',
+    p5:'Анимированный HTML-контент для вертикальных экранов в магазине. Карточки с SVG-логотипом.',
+    p6:'VBA-макросы для автозаполнения ценников Egger и Кедр, экономят несколько часов ручной работы в неделю.',
+    p1n:'Live HTML Editor', p2n:'Qibla Finder', p3n:'Промебель Каталог',
+    p4n:'Морской бой по LAN', p5n:'Промебель Экраны', p6n:'VBA Автоматизации'
+  }
+};
+
+function applyLang(l) {
+  const d = lang[l];
+  document.getElementById('t-tag').textContent = d.tag;
+  document.getElementById('t-h1').innerHTML = d.h1;
+  document.getElementById('t-sub').textContent = d.sub;
+  document.getElementById('t-btn1').textContent = d.btn1;
+  document.getElementById('t-btn2').textContent = d.btn2;
+  document.getElementById('t-scroll').textContent = d.scroll;
+  document.getElementById('t-about-label').textContent = d.aboutLabel;
+  document.getElementById('t-about-title').textContent = d.aboutTitle;
+  document.getElementById('t-s1').textContent = d.s1;
+  document.getElementById('t-s2').textContent = d.s2;
+  document.getElementById('t-s3').textContent = d.s3;
+  document.getElementById('t-about-text').textContent = d.aboutText;
+  document.getElementById('t-proj-label').textContent = d.projLabel;
+  document.getElementById('t-proj-title').textContent = d.projTitle;
+  document.getElementById('t-contact-label').textContent = d.contactLabel;
+  document.getElementById('t-contact-title').textContent = d.contactTitle;
+  document.getElementById('nav-about').textContent = d.navAbout;
+  document.getElementById('nav-proj').textContent = d.navProj;
+  document.getElementById('nav-contact').textContent = d.navContact;
+  document.getElementById('p1-desc').textContent = d.p1;
+  document.getElementById('p2-desc').textContent = d.p2;
+  document.getElementById('p3-desc').textContent = d.p3;
+  document.getElementById('p4-desc').textContent = d.p4;
+  document.getElementById('p5-desc').textContent = d.p5;
+  document.getElementById('p6-desc').textContent = d.p6;
+  document.getElementById('p1-name').textContent = d.p1n;
+  document.getElementById('p2-name').textContent = d.p2n;
+  document.getElementById('p3-name').textContent = d.p3n;
+  document.getElementById('p4-name').textContent = d.p4n;
+  document.getElementById('p5-name').textContent = d.p5n;
+  document.getElementById('p6-name').textContent = d.p6n;
+  document.getElementById('btn-ru').classList.toggle('active', l==='ru');
+  document.getElementById('btn-en').classList.toggle('active', l==='en');
+  document.documentElement.lang = l;
+}
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, {threshold: 0.1});
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
 </body>
 </html>
-
-
-
-
-
-
 
 
 
