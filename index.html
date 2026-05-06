@@ -6,88 +6,117 @@
 <title>Nekruz — Developer</title>
 <meta name="description" content="18 y/o developer from Khujand, Tajikistan. Building web projects, automations, and desktop apps.">
 <style>
-  *{margin:0;padding:0;box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  body{background:#0d0d0f;color:#e8e8e8;font-family:'Inter',system-ui,sans-serif;line-height:1.6}
-  a{text-decoration:none;color:inherit}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:#09090b;color:#d4d4d8;font-family:'Inter',system-ui,sans-serif;line-height:1.6;font-size:14px;overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+canvas#bg{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:0.35}
 
-  nav{position:sticky;top:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:1.1rem 2rem;background:#0d0d0fcc;backdrop-filter:blur(12px);border-bottom:0.5px solid #1e1e1e}
-  .logo{font-size:15px;font-weight:500;color:#fff;letter-spacing:0.5px}
-  .logo span{color:#7F77DD}
-  .nav-right{display:flex;align-items:center;gap:1.5rem}
-  .nav-links{display:flex;gap:1.5rem}
-  .nav-links a{font-size:13px;color:#666;transition:color 0.2s}
-  .nav-links a:hover{color:#e8e8e8}
-  .lang-toggle{display:flex;background:#141416;border:0.5px solid #222;border-radius:8px;overflow:hidden}
-  .lang-btn{padding:4px 14px;font-size:12px;border:none;background:transparent;color:#555;cursor:pointer;transition:all 0.15s}
-  .lang-btn.active{background:#7F77DD;color:#fff}
+nav{position:sticky;top:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:1rem 2rem;background:rgba(9,9,11,0.85);backdrop-filter:blur(16px);border-bottom:1px solid #1f1f23}
+.logo{font-size:15px;font-weight:600;color:#fff;letter-spacing:0.3px}
+.logo span{color:#a78bfa}
+.nav-right{display:flex;align-items:center;gap:1.5rem}
+.nav-links{display:flex;gap:1.5rem}
+.nav-links a{font-size:13px;color:#71717a;transition:color 0.2s}
+.nav-links a:hover{color:#fff}
+.lang-toggle{display:flex;background:#18181b;border:1px solid #27272a;border-radius:8px;overflow:hidden}
+.lang-btn{padding:4px 14px;font-size:12px;border:none;background:transparent;color:#52525b;cursor:pointer;transition:all 0.15s;font-family:inherit}
+.lang-btn.active{background:#7c3aed;color:#fff}
 
-  .hero{padding:6rem 2rem 5rem;text-align:center;position:relative}
-  .hero::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:600px;height:300px;background:radial-gradient(ellipse at center,#7F77DD18 0%,transparent 70%);pointer-events:none}
-  .hero-tag{font-size:11px;color:#7F77DD;letter-spacing:2.5px;text-transform:uppercase;margin-bottom:1.2rem;animation:fadeUp 0.6s 0.1s both}
-  .hero h1{font-size:clamp(2rem,5vw,3.4rem);font-weight:500;color:#fff;line-height:1.15;margin-bottom:1.2rem;animation:fadeUp 0.6s 0.25s both}
-  .hero h1 .accent{color:#7F77DD}
-  .hero-sub{font-size:15px;color:#666;max-width:500px;margin:0 auto 2.5rem;line-height:1.8;animation:fadeUp 0.6s 0.4s both}
-  .hero-btns{display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap;animation:fadeUp 0.6s 0.55s both}
-  .btn-primary{padding:0.65rem 1.5rem;background:#7F77DD;color:#fff;border:none;border-radius:8px;font-size:13px;cursor:pointer;transition:background 0.2s;font-family:inherit}
-  .btn-primary:hover{background:#534AB7}
-  .btn-outline{padding:0.65rem 1.5rem;background:transparent;color:#888;border:0.5px solid #2a2a2a;border-radius:8px;font-size:13px;cursor:pointer;transition:all 0.2s;font-family:inherit}
-  .btn-outline:hover{border-color:#7F77DD;color:#e8e8e8}
-  .scroll-hint{margin-top:4rem;display:flex;flex-direction:column;align-items:center;gap:8px;animation:fadeUp 0.6s 0.8s both}
-  .scroll-hint span{font-size:11px;color:#333;letter-spacing:1px}
-  .scroll-line{width:0.5px;height:40px;background:linear-gradient(#7F77DD,transparent)}
+.hero{padding:5.5rem 2rem 4.5rem;text-align:center;position:relative;z-index:1;overflow:hidden}
+.hero-glow{position:absolute;top:-80px;left:50%;transform:translateX(-50%);width:600px;height:500px;background:radial-gradient(ellipse,rgba(124,58,237,0.1) 0%,transparent 65%);pointer-events:none;transition:transform 0.1s ease-out}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:#18181b;border:1px solid #27272a;border-radius:100px;padding:5px 14px;font-size:11px;color:#a1a1aa;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:1.5rem;animation:fadeUp 0.5s 0.1s both}
+.hero-badge-dot{width:6px;height:6px;border-radius:50%;background:#a78bfa;animation:pulse 2s infinite}
+.hero h1{font-size:clamp(2.4rem,5.5vw,4rem);font-weight:700;color:#fff;line-height:1.08;margin-bottom:1.2rem;letter-spacing:-1.5px;animation:fadeUp 0.5s 0.2s both}
+.accent{background:linear-gradient(135deg,#a78bfa,#7c3aed);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.typewriter-wrap{font-size:clamp(1rem,2vw,1.2rem);color:#52525b;font-weight:400;margin-bottom:0.6rem;height:1.6em;animation:fadeUp 0.5s 0.3s both}
+#typewriter{color:#a78bfa;font-weight:500}
+#cursor{display:inline-block;width:2px;height:1em;background:#7c3aed;vertical-align:middle;animation:blink 0.9s infinite;margin-left:2px}
+.hero-sub{font-size:15px;color:#71717a;max-width:440px;margin:0.8rem auto 2.5rem;line-height:1.8;animation:fadeUp 0.5s 0.4s both}
+.hero-btns{display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap;animation:fadeUp 0.5s 0.5s both}
+.btn-primary{padding:0.72rem 1.6rem;background:#7c3aed;color:#fff;border:none;border-radius:9px;font-size:13px;font-weight:500;cursor:pointer;transition:all 0.2s;font-family:inherit;letter-spacing:0.2px}
+.btn-primary:hover{background:#6d28d9;transform:translateY(-2px);box-shadow:0 8px 24px rgba(124,58,237,0.3)}
+.btn-outline{padding:0.72rem 1.6rem;background:transparent;color:#71717a;border:1px solid #27272a;border-radius:9px;font-size:13px;cursor:pointer;transition:all 0.2s;font-family:inherit}
+.btn-outline:hover{border-color:#52525b;color:#d4d4d8;transform:translateY(-2px)}
 
-  .divider{height:0.5px;background:#161616;margin:0 2rem}
-  section{padding:4rem 2rem;max-width:900px;margin:0 auto}
+.scroll-hint{margin-top:3.5rem;display:flex;flex-direction:column;align-items:center;gap:8px;animation:fadeUp 0.5s 0.8s both;opacity:0.5}
+.scroll-hint span{font-size:10px;color:#3f3f46;letter-spacing:2px;text-transform:uppercase}
+.scroll-mouse{width:20px;height:32px;border:1px solid #27272a;border-radius:10px;display:flex;justify-content:center;padding-top:5px}
+.scroll-wheel{width:3px;height:6px;background:#52525b;border-radius:2px;animation:scrollWheel 1.8s infinite}
 
-  .section-label{font-size:11px;color:#444;letter-spacing:2.5px;text-transform:uppercase;margin-bottom:0.5rem}
-  .section-title{font-size:22px;font-weight:500;color:#e8e8e8;margin-bottom:2rem}
+.divider{height:1px;background:#111113;position:relative;z-index:1}
+section{padding:4rem 2rem;max-width:860px;margin:0 auto;position:relative;z-index:1}
 
-  .about-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;margin-bottom:2rem}
-  .stat-card{background:#111113;border:0.5px solid #1e1e1e;border-radius:10px;padding:1.25rem;transition:border-color 0.2s}
-  .stat-card:hover{border-color:#534AB7}
-  .stat-num{font-size:24px;font-weight:500;color:#7F77DD;margin-bottom:4px}
-  .stat-label{font-size:12px;color:#555}
-  .about-text{font-size:14px;color:#666;line-height:1.9;max-width:640px;margin-bottom:1.5rem}
-  .skills-wrap{display:flex;flex-wrap:wrap;gap:0.5rem}
-  .skill-tag{padding:5px 13px;background:#111113;border:0.5px solid #1e1e1e;border-radius:20px;font-size:12px;color:#777;transition:all 0.2s;cursor:default}
-  .skill-tag:hover{border-color:#7F77DD;color:#AFA9EC}
+.section-label{font-size:11px;color:#7c3aed;letter-spacing:2.5px;text-transform:uppercase;margin-bottom:0.4rem;font-weight:500}
+.section-title{font-size:21px;font-weight:600;color:#fafafa;margin-bottom:2rem;letter-spacing:-0.3px}
 
-  .projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem}
-  .proj-card{background:#111113;border:0.5px solid #1e1e1e;border-radius:12px;padding:1.4rem;transition:all 0.25s;display:flex;flex-direction:column;gap:0.75rem}
-  .proj-card:hover{border-color:#534AB7;transform:translateY(-3px)}
-  .proj-icon{width:36px;height:36px;background:#1a1730;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px}
-  .proj-name{font-size:14px;font-weight:500;color:#e0e0e0}
-  .proj-desc{font-size:12px;color:#555;line-height:1.7;flex:1}
-  .proj-footer{display:flex;align-items:center;justify-content:space-between}
-  .proj-tags{display:flex;gap:0.4rem;flex-wrap:wrap}
-  .proj-tag{font-size:11px;color:#7F77DD;background:#1a1730;padding:2px 8px;border-radius:4px}
-  .proj-link{font-size:11px;color:#444;transition:color 0.2s}
-  .proj-card:hover .proj-link{color:#7F77DD}
+.about-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:2rem}
+.stat-card{background:#111113;border:1px solid #1f1f23;border-radius:12px;padding:1.3rem;text-align:center;transition:all 0.3s;position:relative;overflow:hidden}
+.stat-card::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at center,rgba(124,58,237,0.06),transparent 70%);opacity:0;transition:opacity 0.3s}
+.stat-card:hover::before{opacity:1}
+.stat-card:hover{border-color:#7c3aed;transform:translateY(-3px)}
+.stat-num{font-size:30px;font-weight:700;color:#a78bfa;margin-bottom:4px;letter-spacing:-1px;font-variant-numeric:tabular-nums}
+.stat-label{font-size:11px;color:#52525b}
+.about-text{font-size:14px;color:#71717a;line-height:1.9;max-width:620px;margin-bottom:1.5rem}
+.skills-wrap{display:flex;flex-wrap:wrap;gap:0.5rem}
+.skill-tag{padding:5px 12px;background:#111113;border:1px solid #1f1f23;border-radius:6px;font-size:12px;color:#71717a;transition:all 0.2s;cursor:default}
+.skill-tag:hover{border-color:#7c3aed;color:#a78bfa;background:#13101c;transform:translateY(-1px)}
 
-  .contact-links{display:flex;flex-wrap:wrap;gap:0.75rem}
-  .contact-item{display:flex;align-items:center;gap:8px;padding:0.65rem 1.1rem;background:#111113;border:0.5px solid #1e1e1e;border-radius:8px;font-size:13px;color:#777;transition:all 0.2s}
-  .contact-item:hover{border-color:#7F77DD;color:#e8e8e8}
-  .contact-item svg{flex-shrink:0}
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px}
+.proj-card{background:#111113;border:1px solid #1f1f23;border-radius:12px;padding:1.3rem;transition:all 0.3s;display:flex;flex-direction:column;gap:0.7rem;position:relative;overflow:hidden;cursor:default}
+.proj-card::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(124,58,237,0.08),transparent 60%);opacity:0;transition:opacity 0.3s}
+.proj-card:hover::before{opacity:1}
+.proj-card:hover{border-color:#4c1d95;background:#0f0b18;transform:translateY(-3px);box-shadow:0 12px 32px rgba(0,0,0,0.4)}
+.proj-icon{width:36px;height:36px;background:#1e1433;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:17px;transition:transform 0.3s}
+.proj-card:hover .proj-icon{transform:scale(1.1) rotate(-5deg)}
+.proj-name{font-size:14px;font-weight:600;color:#fafafa;letter-spacing:-0.1px}
+.proj-desc{font-size:12px;color:#52525b;line-height:1.75;flex:1}
+.proj-footer{display:flex;align-items:center;justify-content:space-between}
+.proj-tags{display:flex;gap:5px;flex-wrap:wrap}
+.proj-tag{font-size:10px;color:#7c3aed;background:#1e1433;padding:2px 7px;border-radius:4px;font-weight:500}
+.proj-link{font-size:16px;color:#3f3f46;transition:all 0.2s}
+.proj-card:hover .proj-link{color:#a78bfa;transform:translateX(2px)}
 
-  footer{border-top:0.5px solid #161616;padding:2rem;text-align:center}
-  footer p{font-size:12px;color:#333}
+.timeline{display:flex;flex-direction:column;gap:0}
+.tl-item{display:flex;gap:1.5rem;position:relative;padding-bottom:2rem}
+.tl-item:last-child{padding-bottom:0}
+.tl-left{display:flex;flex-direction:column;align-items:center;flex-shrink:0;width:28px}
+.tl-dot{width:10px;height:10px;border-radius:50%;background:#7c3aed;border:2px solid #09090b;box-shadow:0 0 0 3px #1e1433;flex-shrink:0;margin-top:4px;transition:all 0.3s}
+.tl-item:hover .tl-dot{box-shadow:0 0 0 4px #2e1d6e;background:#a78bfa}
+.tl-line{width:1px;background:linear-gradient(#27272a,transparent);flex:1;margin-top:6px}
+.tl-item:last-child .tl-line{display:none}
+.tl-content{flex:1;padding-bottom:0.5rem}
+.tl-date{font-size:11px;color:#52525b;margin-bottom:4px;letter-spacing:0.5px}
+.tl-title{font-size:14px;font-weight:600;color:#e4e4e7;margin-bottom:4px}
+.tl-desc{font-size:12px;color:#52525b;line-height:1.75}
 
-  @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.contact-links{display:flex;flex-wrap:wrap;gap:0.75rem}
+.contact-item{display:flex;align-items:center;gap:9px;padding:0.75rem 1.25rem;background:#111113;border:1px solid #1f1f23;border-radius:9px;font-size:13px;color:#71717a;transition:all 0.25s;position:relative;overflow:hidden}
+.contact-item::after{content:'';position:absolute;left:0;bottom:0;height:1px;width:0;background:#7c3aed;transition:width 0.3s}
+.contact-item:hover::after{width:100%}
+.contact-item:hover{border-color:#27272a;color:#fafafa;transform:translateY(-2px)}
+.contact-item svg{flex-shrink:0;transition:color 0.2s}
+.contact-item:hover svg{color:#a78bfa}
 
-  .reveal{opacity:0;transform:translateY(24px);transition:opacity 0.6s ease,transform 0.6s ease}
-  .reveal.visible{opacity:1;transform:none}
+footer{border-top:1px solid #111113;padding:2rem;text-align:center;position:relative;z-index:1}
+footer p{font-size:12px;color:#3f3f46}
 
-  @media(max-width:600px){
-    nav{padding:1rem 1.25rem}
-    .hero{padding:4rem 1.25rem 3rem}
-    section{padding:3rem 1.25rem}
-    .divider{margin:0 1.25rem}
-    .nav-links{display:none}
-  }
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(0.8)}}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+@keyframes scrollWheel{0%{transform:translateY(0);opacity:1}100%{transform:translateY(10px);opacity:0}}
+
+.reveal{opacity:0;transform:translateY(24px);transition:opacity 0.6s ease,transform 0.6s ease}
+.reveal.visible{opacity:1;transform:none}
+.reveal-left{opacity:0;transform:translateX(-20px);transition:opacity 0.6s ease,transform 0.6s ease}
+.reveal-left.visible{opacity:1;transform:none}
+
+@media(max-width:600px){nav{padding:1rem 1.25rem}.hero{padding:4rem 1.25rem 3rem}section{padding:3rem 1.25rem}.nav-links{display:none}}
 </style>
 </head>
 <body>
+
+<canvas id="bg"></canvas>
 
 <nav>
   <div class="logo">nek<span>.</span>xyz</div>
@@ -95,6 +124,7 @@
     <div class="nav-links">
       <a href="#about" id="nav-about">About</a>
       <a href="#projects" id="nav-proj">Projects</a>
+      <a href="#timeline" id="nav-tl">Journey</a>
       <a href="#contact" id="nav-contact">Contact</a>
     </div>
     <div class="lang-toggle">
@@ -105,16 +135,18 @@
 </nav>
 
 <div class="hero">
-  <div class="hero-tag" id="t-tag">Developer & Specialist</div>
+  <div class="hero-glow" id="heroGlow"></div>
+  <div class="hero-badge"><div class="hero-badge-dot"></div><span id="t-tag">Developer & Specialist</span></div>
   <h1 id="t-h1">Hi, I'm <span class="accent">Nekruz</span><br>I build things for the web</h1>
-  <p class="hero-sub" id="t-sub">18 y/o developer from Khujand, Tajikistan. Building web projects, automations, and desktop apps.</p>
+  <div class="typewriter-wrap"><span id="typewriter"></span><span id="cursor"></span></div>
+  <p class="hero-sub" id="t-sub">18 y/o developer from Khujand, Tajikistan. Building web projects, automations, and desktop apps on the side.</p>
   <div class="hero-btns">
     <button class="btn-primary" onclick="document.getElementById('projects').scrollIntoView({behavior:'smooth'})" id="t-btn1">View projects</button>
     <button class="btn-outline" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})" id="t-btn2">Get in touch</button>
   </div>
   <div class="scroll-hint">
+    <div class="scroll-mouse"><div class="scroll-wheel"></div></div>
     <span id="t-scroll">scroll</span>
-    <div class="scroll-line"></div>
   </div>
 </div>
 
@@ -125,22 +157,13 @@
     <div class="section-label" id="t-about-label">About</div>
     <div class="section-title" id="t-about-title">A bit about me</div>
     <div class="about-stats">
-      <div class="stat-card"><div class="stat-num">15+</div><div class="stat-label" id="t-s1">Months at Промебель</div></div>
-      <div class="stat-card"><div class="stat-num">6+</div><div class="stat-label" id="t-s2">Projects built</div></div>
-      <div class="stat-card"><div class="stat-num">5+</div><div class="stat-label" id="t-s3">Languages & stacks</div></div>
+      <div class="stat-card"><div class="stat-num" data-target="15" data-suffix="+">0</div><div class="stat-label" id="t-s1">Months at Промебель</div></div>
+      <div class="stat-card"><div class="stat-num" data-target="6" data-suffix="+">0</div><div class="stat-label" id="t-s2">Projects built</div></div>
+      <div class="stat-card"><div class="stat-num" data-target="5" data-suffix="+">0</div><div class="stat-label" id="t-s3">Languages & stacks</div></div>
     </div>
     <p class="about-text" id="t-about-text">Student, developer, and furniture specialist. I work at Промебель in procurement while building web tools, automations, and desktop apps on the side. Currently deepening C# and .NET, exploring freelance opportunities, and learning something new every day.</p>
     <div class="skills-wrap">
-      <span class="skill-tag">C#</span>
-      <span class="skill-tag">C++</span>
-      <span class="skill-tag">HTML / CSS / JS</span>
-      <span class="skill-tag">VBA / Excel</span>
-      <span class="skill-tag">1C</span>
-      <span class="skill-tag">.NET MAUI</span>
-      <span class="skill-tag">Google Apps Script</span>
-      <span class="skill-tag">Node.js</span>
-      <span class="skill-tag">WPF</span>
-      <span class="skill-tag">Git</span>
+      <span class="skill-tag">C#</span><span class="skill-tag">C++</span><span class="skill-tag">HTML / CSS / JS</span><span class="skill-tag">VBA / Excel</span><span class="skill-tag">1C</span><span class="skill-tag">.NET MAUI</span><span class="skill-tag">Google Apps Script</span><span class="skill-tag">Node.js</span><span class="skill-tag">WPF</span><span class="skill-tag">Git</span>
     </div>
   </div>
 </section>
@@ -152,63 +175,93 @@
     <div class="section-label" id="t-proj-label">Projects</div>
     <div class="section-title" id="t-proj-title">Things I've built</div>
     <div class="projects-grid">
-
-      <div class="proj-card">
+      <div class="proj-card" onmousemove="cardGlow(this,event)">
         <div class="proj-icon">⚡</div>
         <div class="proj-name" id="p1-name">Live HTML Editor</div>
         <div class="proj-desc" id="p1-desc">WPF desktop app with Monaco Editor, live preview, tabs, drag-and-drop, and a full Inno Setup installer.</div>
-        <div class="proj-footer">
-          <div class="proj-tags"><span class="proj-tag">C#</span><span class="proj-tag">WPF</span><span class="proj-tag">WebView2</span></div>
-        </div>
+        <div class="proj-footer"><div class="proj-tags"><span class="proj-tag">C#</span><span class="proj-tag">WPF</span><span class="proj-tag">WebView2</span></div></div>
       </div>
-
-      <div class="proj-card">
+      <div class="proj-card" onmousemove="cardGlow(this,event)">
         <div class="proj-icon">🕌</div>
         <div class="proj-name" id="p2-name">Qibla Finder</div>
         <div class="proj-desc" id="p2-desc">.NET MAUI mobile app using GPS and compass to display Kaaba direction with a rotating arrow indicator.</div>
-        <div class="proj-footer">
-          <div class="proj-tags"><span class="proj-tag">C#</span><span class="proj-tag">MAUI</span><span class="proj-tag">GPS</span></div>
-        </div>
+        <div class="proj-footer"><div class="proj-tags"><span class="proj-tag">C#</span><span class="proj-tag">MAUI</span><span class="proj-tag">GPS</span></div></div>
       </div>
-
-      <div class="proj-card">
+      <div class="proj-card" onmousemove="cardGlow(this,event)">
         <div class="proj-icon">🪵</div>
         <div class="proj-name" id="p3-name">Промебель Catalog</div>
         <div class="proj-desc" id="p3-desc">Dark-themed product catalog connected to Google Sheets via JSONP. Includes filtering, search, and modal views.</div>
-        <div class="proj-footer">
-          <div class="proj-tags"><span class="proj-tag">JS</span><span class="proj-tag">Google Sheets</span><span class="proj-tag">GitHub Pages</span></div>
-          <a class="proj-link" href="https://nek-yoqubov.github.io/promebel/catalog/index.html" target="_blank">↗</a>
-        </div>
+        <div class="proj-footer"><div class="proj-tags"><span class="proj-tag">JS</span><span class="proj-tag">Sheets</span><span class="proj-tag">Pages</span></div><a class="proj-link" href="https://nek-yoqubov.github.io/promebel/catalog/index.html" target="_blank">↗</a></div>
       </div>
-
-      <div class="proj-card">
+      <div class="proj-card" onmousemove="cardGlow(this,event)">
         <div class="proj-icon">🚢</div>
         <div class="proj-name" id="p4-name">LAN Battleship</div>
         <div class="proj-desc" id="p4-desc">Multiplayer battleship over LAN with Node.js/WebSocket backend, ship placement, hit tracking, and session reconnection.</div>
-        <div class="proj-footer">
-          <div class="proj-tags"><span class="proj-tag">Node.js</span><span class="proj-tag">WebSocket</span><span class="proj-tag">JS</span></div>
-        </div>
+        <div class="proj-footer"><div class="proj-tags"><span class="proj-tag">Node.js</span><span class="proj-tag">WebSocket</span><span class="proj-tag">JS</span></div></div>
       </div>
-
-      <div class="proj-card">
+      <div class="proj-card" onmousemove="cardGlow(this,event)">
         <div class="proj-icon">🖥️</div>
         <div class="proj-name" id="p5-name">Промебель Screens</div>
         <div class="proj-desc" id="p5-desc">Animated HTML digital signage for in-store vertical screens. Rotating info cards with SVG Pro Mebel logo.</div>
-        <div class="proj-footer">
-          <div class="proj-tags"><span class="proj-tag">HTML</span><span class="proj-tag">CSS</span><span class="proj-tag">SVG</span></div>
-          <a class="proj-link" href="https://nek-yoqubov.github.io/promebel/" target="_blank">↗</a>
-        </div>
+        <div class="proj-footer"><div class="proj-tags"><span class="proj-tag">HTML</span><span class="proj-tag">CSS</span><span class="proj-tag">SVG</span></div><a class="proj-link" href="https://nek-yoqubov.github.io/promebel/" target="_blank">↗</a></div>
       </div>
-
-      <div class="proj-card">
+      <div class="proj-card" onmousemove="cardGlow(this,event)">
         <div class="proj-icon">📊</div>
         <div class="proj-name" id="p6-name">VBA Automations</div>
         <div class="proj-desc" id="p6-desc">Excel VBA macros for auto-filling Egger and Кедр price tag sheets, saving hours of manual work each week.</div>
-        <div class="proj-footer">
-          <div class="proj-tags"><span class="proj-tag">VBA</span><span class="proj-tag">Excel</span><span class="proj-tag">1C</span></div>
+        <div class="proj-footer"><div class="proj-tags"><span class="proj-tag">VBA</span><span class="proj-tag">Excel</span><span class="proj-tag">1C</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="timeline">
+  <div class="reveal">
+    <div class="section-label" id="t-tl-label">Journey</div>
+    <div class="section-title" id="t-tl-title">How I got here</div>
+    <div class="timeline">
+      <div class="tl-item reveal-left">
+        <div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div>
+        <div class="tl-content">
+          <div class="tl-date" id="tl1-date">Feb 2026 — present</div>
+          <div class="tl-title" id="tl1-title">Procurement specialist — Промебель</div>
+          <div class="tl-desc" id="tl1-desc">Managing purchasing, supplier relations, 1C analytics, and AI-assisted procurement reports.</div>
         </div>
       </div>
-
+      <div class="tl-item reveal-left">
+        <div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div>
+        <div class="tl-content">
+          <div class="tl-date" id="tl2-date">2025</div>
+          <div class="tl-title" id="tl2-title">Built production management system</div>
+          <div class="tl-desc" id="tl2-desc">Google Apps Script + Telegram bot + GitHub Pages frontend. Full order tracking for the workshop.</div>
+        </div>
+      </div>
+      <div class="tl-item reveal-left">
+        <div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div>
+        <div class="tl-content">
+          <div class="tl-date" id="tl3-date">2025</div>
+          <div class="tl-title" id="tl3-title">C# & .NET MAUI deep dive</div>
+          <div class="tl-desc" id="tl3-desc">Built Live HTML Editor (WPF), Qibla Finder (MAUI), and material inventory manager. Learning every day.</div>
+        </div>
+      </div>
+      <div class="tl-item reveal-left">
+        <div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div>
+        <div class="tl-content">
+          <div class="tl-date" id="tl4-date">Feb 2025</div>
+          <div class="tl-title" id="tl4-title">Intern → Sales → Cutting → Bookkeeping</div>
+          <div class="tl-desc" id="tl4-desc">Joined Промебель and rotated through five different roles in 15 months while building tools for each one.</div>
+        </div>
+      </div>
+      <div class="tl-item reveal-left">
+        <div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div>
+        <div class="tl-content">
+          <div class="tl-date" id="tl5-date">2024</div>
+          <div class="tl-title" id="tl5-title">Started self-teaching programming</div>
+          <div class="tl-desc" id="tl5-desc">HTML/CSS/JS, then C++, then C# — always through real projects. First freelance order in the pipeline.</div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -228,124 +281,44 @@
         <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.94 8.19l-2.02 9.52c-.15.66-.54.82-1.08.51l-3-2.21-1.45 1.39c-.16.16-.3.3-.61.3l.22-3.07 5.6-5.06c.24-.22-.05-.34-.38-.12L6.4 14.17l-2.96-.92c-.64-.2-.65-.64.14-.95l11.57-4.46c.53-.19 1 .13.79.95z"/></svg>
         Telegram
       </a>
-      <a class="contact-item" href="mailto:nekruz@nekruz.xyz">
+      <a class="contact-item" href="mailto:nek.yoqubov@gmail.com">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
-        nekruz@nekruz.xyz
+        nek.yoqubov@gmail.com
       </a>
     </div>
   </div>
 </section>
 
-<footer>
-  <p>nekruz.xyz &mdash; 2026</p>
-</footer>
+<footer><p>nekruz.xyz — 2026</p></footer>
 
 <script>
-const lang = {
-  en: {
-    tag:'Developer & Specialist',
-    h1:'Hi, I\'m <span class="accent">Nekruz</span><br>I build things for the web',
-    sub:'18 y/o developer from Khujand, Tajikistan. Building web projects, automations, and desktop apps.',
-    btn1:'View projects', btn2:'Get in touch', scroll:'scroll',
-    aboutLabel:'About', aboutTitle:'A bit about me',
-    s1:'Months at Промебель', s2:'Projects built', s3:'Languages & stacks',
-    aboutText:'Student, developer, and furniture specialist. I work at Промебель in procurement while building web tools, automations, and desktop apps on the side. Currently deepening C# and .NET, exploring freelance, and learning something new every day.',
-    projLabel:'Projects', projTitle:"Things I've built",
-    contactLabel:'Contact', contactTitle:'Get in touch',
-    navAbout:'About', navProj:'Projects', navContact:'Contact',
-    p1:'WPF desktop app with Monaco Editor, live preview, tabs, drag-and-drop, and a full Inno Setup installer.',
-    p2:'.NET MAUI mobile app using GPS and compass to display Kaaba direction with a rotating arrow.',
-    p3:'Dark-themed product catalog connected to Google Sheets via JSONP. Includes filtering, search, and modal views.',
-    p4:'Multiplayer battleship over LAN with Node.js/WebSocket backend, ship placement, and session reconnection.',
-    p5:'Animated HTML digital signage for in-store vertical screens. Rotating info cards with SVG logo.',
-    p6:'Excel VBA macros for auto-filling Egger and Кедр price tag sheets, saving hours of manual work each week.',
-    p1n:'Live HTML Editor', p2n:'Qibla Finder', p3n:'Промебель Catalog',
-    p4n:'LAN Battleship', p5n:'Промебель Screens', p6n:'VBA Automations'
-  },
-  ru: {
-    tag:'Разработчик & Специалист',
-    h1:'Привет, я <span class="accent">Некрӯз</span><br>Создаю вещи для веба',
-    sub:'18-летний разработчик из Худжанда, Таджикистан. Пишу веб-проекты, автоматизации и десктопные приложения.',
-    btn1:'Проекты', btn2:'Связаться', scroll:'листай',
-    aboutLabel:'Обо мне', aboutTitle:'Немного о себе',
-    s1:'Месяцев в Промебель', s2:'Проектов создано', s3:'Языков и стеков',
-    aboutText:'Студент, программист и специалист по мебели. Работаю в Промебель в закупках, параллельно создаю веб-инструменты, автоматизации и десктопные приложения. Сейчас углубляюсь в C# и .NET, исследую фриланс и каждый день учу что-то новое.',
-    projLabel:'Проекты', projTitle:'Что я сделал',
-    contactLabel:'Контакты', contactTitle:'Связаться',
-    navAbout:'Обо мне', navProj:'Проекты', navContact:'Контакты',
-    p1:'Десктопное WPF-приложение с Monaco Editor, живым превью, вкладками и drag-and-drop. Полный установщик Inno Setup.',
-    p2:'Мобильное приложение .NET MAUI с GPS и компасом для определения направления на Каабу.',
-    p3:'Каталог товаров с тёмной темой, подключённый к Google Sheets через JSONP. Фильтрация, поиск и модальные окна.',
-    p4:'Многопользовательский морской бой по локальной сети на Node.js/WebSocket с расстановкой кораблей и реконнектом.',
-    p5:'Анимированный HTML-контент для вертикальных экранов в магазине. Карточки с SVG-логотипом.',
-    p6:'VBA-макросы для автозаполнения ценников Egger и Кедр, экономят несколько часов ручной работы в неделю.',
-    p1n:'Live HTML Editor', p2n:'Qibla Finder', p3n:'Промебель Каталог',
-    p4n:'Морской бой по LAN', p5n:'Промебель Экраны', p6n:'VBA Автоматизации'
-  }
-};
+const canvas=document.getElementById('bg');
+const ctx=canvas.getContext('2d');
+let W,H,particles=[];
+function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight}
+resize();window.addEventListener('resize',resize);
+class Particle{constructor(){this.reset()}reset(){this.x=Math.random()*W;this.y=Math.random()*H;this.r=Math.random()*1.2+0.3;this.vx=(Math.random()-0.5)*0.3;this.vy=(Math.random()-0.5)*0.3;this.alpha=Math.random()*0.5+0.1}update(){this.x+=this.vx;this.y+=this.vy;if(this.x<0||this.x>W||this.y<0||this.y>H)this.reset()}draw(){ctx.beginPath();ctx.arc(this.x,this.y,this.r,0,Math.PI*2);ctx.fillStyle=`rgba(167,139,250,${this.alpha})`;ctx.fill()}}
+for(let i=0;i<80;i++)particles.push(new Particle());
+function animateParticles(){ctx.clearRect(0,0,W,H);particles.forEach(p=>{p.update();p.draw()});for(let i=0;i<particles.length;i++)for(let j=i+1;j<particles.length;j++){const dx=particles[i].x-particles[j].x,dy=particles[i].y-particles[j].y,d=Math.sqrt(dx*dx+dy*dy);if(d<100){ctx.beginPath();ctx.moveTo(particles[i].x,particles[i].y);ctx.lineTo(particles[j].x,particles[j].y);ctx.strokeStyle=`rgba(124,58,237,${0.12*(1-d/100)})`;ctx.lineWidth=0.5;ctx.stroke()}}requestAnimationFrame(animateParticles)}
+animateParticles();
 
-function applyLang(l) {
-  const d = lang[l];
-  document.getElementById('t-tag').textContent = d.tag;
-  document.getElementById('t-h1').innerHTML = d.h1;
-  document.getElementById('t-sub').textContent = d.sub;
-  document.getElementById('t-btn1').textContent = d.btn1;
-  document.getElementById('t-btn2').textContent = d.btn2;
-  document.getElementById('t-scroll').textContent = d.scroll;
-  document.getElementById('t-about-label').textContent = d.aboutLabel;
-  document.getElementById('t-about-title').textContent = d.aboutTitle;
-  document.getElementById('t-s1').textContent = d.s1;
-  document.getElementById('t-s2').textContent = d.s2;
-  document.getElementById('t-s3').textContent = d.s3;
-  document.getElementById('t-about-text').textContent = d.aboutText;
-  document.getElementById('t-proj-label').textContent = d.projLabel;
-  document.getElementById('t-proj-title').textContent = d.projTitle;
-  document.getElementById('t-contact-label').textContent = d.contactLabel;
-  document.getElementById('t-contact-title').textContent = d.contactTitle;
-  document.getElementById('nav-about').textContent = d.navAbout;
-  document.getElementById('nav-proj').textContent = d.navProj;
-  document.getElementById('nav-contact').textContent = d.navContact;
-  document.getElementById('p1-desc').textContent = d.p1;
-  document.getElementById('p2-desc').textContent = d.p2;
-  document.getElementById('p3-desc').textContent = d.p3;
-  document.getElementById('p4-desc').textContent = d.p4;
-  document.getElementById('p5-desc').textContent = d.p5;
-  document.getElementById('p6-desc').textContent = d.p6;
-  document.getElementById('p1-name').textContent = d.p1n;
-  document.getElementById('p2-name').textContent = d.p2n;
-  document.getElementById('p3-name').textContent = d.p3n;
-  document.getElementById('p4-name').textContent = d.p4n;
-  document.getElementById('p5-name').textContent = d.p5n;
-  document.getElementById('p6-name').textContent = d.p6n;
-  document.getElementById('btn-ru').classList.toggle('active', l==='ru');
-  document.getElementById('btn-en').classList.toggle('active', l==='en');
-  document.documentElement.lang = l;
-}
+document.addEventListener('mousemove',e=>{const glow=document.getElementById('heroGlow');const rx=(e.clientX/window.innerWidth-0.5)*30,ry=(e.clientY/window.innerHeight-0.5)*20;glow.style.transform=`translateX(calc(-50% + ${rx}px)) translateY(${ry}px)`});
 
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
-}, {threshold: 0.1});
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+const phrases={en:['C# & .NET developer','Web tools builder','Automation enthusiast','Freelancer in the making'],ru:['Разработчик на C# и .NET','Строю веб-инструменты','Автоматизирую всё вокруг','Будущий фрилансер']};
+let curLang='en',phraseIdx=0,charIdx=0,deleting=false;
+function typeLoop(){const list=phrases[curLang],word=list[phraseIdx],el=document.getElementById('typewriter');if(!deleting){el.textContent=word.slice(0,charIdx+1);charIdx++;if(charIdx===word.length){deleting=true;setTimeout(typeLoop,1800);return}}else{el.textContent=word.slice(0,charIdx-1);charIdx--;if(charIdx===0){deleting=false;phraseIdx=(phraseIdx+1)%list.length}}setTimeout(typeLoop,deleting?45:80)}
+typeLoop();
+
+function animateCount(el){const target=parseInt(el.dataset.target),suffix=el.dataset.suffix||'';let start=0;const dur=1200,step=16,inc=target/(dur/step);const timer=setInterval(()=>{start=Math.min(start+inc,target);el.textContent=Math.floor(start)+suffix;if(start>=target)clearInterval(timer)},step)}
+
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');e.target.querySelectorAll('[data-target]').forEach(animateCount)}})},{threshold:0.12});
+document.querySelectorAll('.reveal,.reveal-left').forEach(el=>obs.observe(el));
+
+function cardGlow(card,e){const r=card.getBoundingClientRect();card.style.setProperty('--mx',((e.clientX-r.left)/r.width*100)+'%');card.style.setProperty('--my',((e.clientY-r.top)/r.height*100)+'%')}
+
+const lang={en:{tag:'Developer & Specialist',h1:'Hi, I\'m <span class="accent">Nekruz</span><br>I build things for the web',sub:'18 y/o developer from Khujand, Tajikistan. Building web projects, automations, and desktop apps on the side.',btn1:'View projects',btn2:'Get in touch',scroll:'scroll',aboutLabel:'About',aboutTitle:'A bit about me',s1:'Months at Промебель',s2:'Projects built',s3:'Languages & stacks',aboutText:'Student, developer, and furniture specialist. I work at Промебель in procurement while building web tools, automations, and desktop apps on the side. Currently deepening C# and .NET, exploring freelance, and learning something new every day.',projLabel:'Projects',projTitle:"Things I've built",tlLabel:'Journey',tlTitle:'How I got here',contactLabel:'Contact',contactTitle:'Get in touch',navAbout:'About',navProj:'Projects',navTl:'Journey',navContact:'Contact',p1:'WPF desktop app with Monaco Editor, live preview, tabs, drag-and-drop, and a full Inno Setup installer.',p2:'.NET MAUI mobile app using GPS and compass to display Kaaba direction with a rotating arrow.',p3:'Dark-themed product catalog connected to Google Sheets via JSONP. Filtering, search, and modal views.',p4:'Multiplayer battleship over LAN with Node.js/WebSocket backend, ship placement, and reconnection.',p5:'Animated HTML digital signage for in-store vertical screens. Rotating info cards with SVG logo.',p6:'Excel VBA macros for auto-filling Egger and Кедр price tag sheets, saving hours each week.',p1n:'Live HTML Editor',p2n:'Qibla Finder',p3n:'Промебель Catalog',p4n:'LAN Battleship',p5n:'Промебель Screens',p6n:'VBA Automations',tl1d:'Feb 2026 — present',tl1t:'Procurement specialist — Промебель',tl1x:'Managing purchasing, supplier relations, 1C analytics, and AI-assisted procurement reports.',tl2d:'2025',tl2t:'Built production management system',tl2x:'Google Apps Script + Telegram bot + GitHub Pages frontend. Full order tracking for the workshop.',tl3d:'2025',tl3t:'C# & .NET MAUI deep dive',tl3x:'Built Live HTML Editor (WPF), Qibla Finder (MAUI), and material inventory manager. Learning every day.',tl4d:'Feb 2025',tl4t:'Intern → Sales → Cutting → Bookkeeping',tl4x:'Joined Промебель and rotated through five roles in 15 months while building tools for each one.',tl5d:'2024',tl5t:'Started self-teaching programming',tl5x:'HTML/CSS/JS, then C++, then C# — always through real projects. First freelance order in the pipeline.'},ru:{tag:'Разработчик & Специалист',h1:'Привет, я <span class="accent">Некрӯз</span><br>Создаю вещи для веба',sub:'18-летний разработчик из Худжанда, Таджикистан. Пишу веб-проекты, автоматизации и десктопные приложения.',btn1:'Проекты',btn2:'Связаться',scroll:'листай',aboutLabel:'Обо мне',aboutTitle:'Немного о себе',s1:'Месяцев в Промебель',s2:'Проектов создано',s3:'Языков и стеков',aboutText:'Студент, программист и специалист по мебели. Работаю в Промебель в закупках, параллельно создаю веб-инструменты, автоматизации и десктопные приложения. Сейчас углубляюсь в C# и .NET, исследую фриланс и каждый день учу что-то новое.',projLabel:'Проекты',projTitle:'Что я сделал',tlLabel:'Путь',tlTitle:'Как я сюда попал',contactLabel:'Контакты',contactTitle:'Связаться',navAbout:'Обо мне',navProj:'Проекты',navTl:'Путь',navContact:'Контакты',p1:'Десктопное WPF-приложение с Monaco Editor, живым превью, вкладками и drag-and-drop. Полный установщик.',p2:'Мобильное приложение .NET MAUI с GPS и компасом для определения направления на Каабу.',p3:'Каталог товаров с тёмной темой, подключённый к Google Sheets через JSONP. Фильтрация и поиск.',p4:'Морской бой по локальной сети на Node.js/WebSocket с расстановкой кораблей и реконнектом.',p5:'Анимированный HTML-контент для вертикальных экранов в магазине. Карточки с SVG-логотипом.',p6:'VBA-макросы для автозаполнения ценников Egger и Кедр, экономят несколько часов в неделю.',p1n:'Live HTML Editor',p2n:'Qibla Finder',p3n:'Промебель Каталог',p4n:'Морской бой по LAN',p5n:'Промебель Экраны',p6n:'VBA Автоматизации',tl1d:'Фев 2026 — сейчас',tl1t:'Специалист по закупкам — Промебель',tl1x:'Закупки, работа с поставщиками, аналитика в 1С, AI-отчёты по закупкам.',tl2d:'2025',tl2t:'Построил систему управления производством',tl2x:'Google Apps Script + Telegram бот + GitHub Pages фронтенд. Полный трекинг заказов для цеха.',tl3d:'2025',tl3t:'Углублённое изучение C# и .NET MAUI',tl3x:'Создал Live HTML Editor (WPF), Qibla Finder (MAUI) и систему учёта материалов. Учусь каждый день.',tl4d:'Фев 2025',tl4t:'Стажёр → Продажи → Раскрой → Бухгалтерия',tl4x:'Пришёл в Промебель и за 15 месяцев прошёл пять разных должностей, строя инструменты для каждой.',tl5d:'2024',tl5t:'Начал самостоятельно учиться программированию',tl5x:'HTML/CSS/JS, потом C++, потом C# — всегда через реальные проекты. Первый фриланс-заказ в работе.'}};
+
+function applyLang(l){curLang=l;phraseIdx=0;charIdx=0;deleting=false;const d=lang[l];document.getElementById('t-tag').textContent=d.tag;document.getElementById('t-h1').innerHTML=d.h1;document.getElementById('t-sub').textContent=d.sub;document.getElementById('t-btn1').textContent=d.btn1;document.getElementById('t-btn2').textContent=d.btn2;document.getElementById('t-scroll').textContent=d.scroll;document.getElementById('t-about-label').textContent=d.aboutLabel;document.getElementById('t-about-title').textContent=d.aboutTitle;document.getElementById('t-s1').textContent=d.s1;document.getElementById('t-s2').textContent=d.s2;document.getElementById('t-s3').textContent=d.s3;document.getElementById('t-about-text').textContent=d.aboutText;document.getElementById('t-proj-label').textContent=d.projLabel;document.getElementById('t-proj-title').textContent=d.projTitle;document.getElementById('t-tl-label').textContent=d.tlLabel;document.getElementById('t-tl-title').textContent=d.tlTitle;document.getElementById('t-contact-label').textContent=d.contactLabel;document.getElementById('t-contact-title').textContent=d.contactTitle;document.getElementById('nav-about').textContent=d.navAbout;document.getElementById('nav-proj').textContent=d.navProj;document.getElementById('nav-tl').textContent=d.navTl;document.getElementById('nav-contact').textContent=d.navContact;['p1','p2','p3','p4','p5','p6'].forEach(p=>{document.getElementById(p+'-desc').textContent=d[p];document.getElementById(p+'-name').textContent=d[p+'n']});[1,2,3,4,5].forEach(i=>{document.getElementById('tl'+i+'-date').textContent=d['tl'+i+'d'];document.getElementById('tl'+i+'-title').textContent=d['tl'+i+'t'];document.getElementById('tl'+i+'-desc').textContent=d['tl'+i+'x']});document.getElementById('btn-ru').classList.toggle('active',l==='ru');document.getElementById('btn-en').classList.toggle('active',l==='en');document.documentElement.lang=l}
 </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
